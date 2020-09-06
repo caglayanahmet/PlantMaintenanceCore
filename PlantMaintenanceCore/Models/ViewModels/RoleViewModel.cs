@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace PlantMaintenanceCore.Models.ViewModels
 {
-    public class TitleViewModel
+    public class RoleViewModel
     {
         public int? Id { get; set; }
 
         [Required]
         [StringLength(50)]
-        [Display(Name = "Title Name")]
-        public string TitleName { get; set; }
+        [Display(Name = "Role Name")]
+        public string RoleName { get; set; }
         public string Description { get; set; }
         public bool IsActive { get; set; }
 

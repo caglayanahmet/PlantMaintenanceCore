@@ -310,3 +310,8 @@ C:\Users\Ahmet C\Desktop\git\PlantMaintenanceCore\PlantMaintenanceCore\obj\Debug
 C:\Users\Ahmet C\Desktop\git\PlantMaintenanceCore\PlantMaintenanceCore\obj\Debug\netcoreapp3.1\PlantMaintenanceCore.dll
 C:\Users\Ahmet C\Desktop\git\PlantMaintenanceCore\PlantMaintenanceCore\obj\Debug\netcoreapp3.1\PlantMaintenanceCore.pdb
 C:\Users\Ahmet C\Desktop\git\PlantMaintenanceCore\PlantMaintenanceCore\obj\Debug\netcoreapp3.1\PlantMaintenanceCore.genruntimeconfig.cache
+C:\Users\Ahmet C\Desktop\git\PlantMaintenanceCore\PlantMaintenanceCore\obj\Debug\netcoreapp3.1\Razor\Views\Title\Edit.cshtml.g.cs
+C:\Users\Ahmet C\Desktop\git\PlantMaintenanceCore\PlantMaintenanceCore\obj\Debug\netcoreapp3.1\Razor\Views\Urgency\Edit.cshtml.g.cs
+C:\Users\Ahmet C\Desktop\git\PlantMaintenanceCore\PlantMaintenanceCore\obj\Debug\netcoreapp3.1\Razor\Views\Urgency\Index.cshtml.g.cs
+C:\Users\Ahmet C\Desktop\git\PlantMaintenanceCore\PlantMaintenanceCore\obj\Debug\netcoreapp3.1\Razor\Views\Role\Edit.cshtml.g.cs
+C:\Users\Ahmet C\Desktop\git\PlantMaintenanceCore\PlantMaintenanceCore\obj\Debug\netcoreapp3.1\Razor\Views\Role\Index.cshtml.g.cs

@@ -7,7 +7,7 @@
 
 <div class="container">
     <h1>@ViewData["Title"]</h1>
-    <a class="btn btn-info" href="Title/edit" style="float:right; margin-bottom:30px;">Add New</a>
+    <a class="btn btn-info" href="/Title/edit/" style="float:right; margin-bottom:30px;">Add New</a>
     <table class="table table-hover">
         <thead>
         <tr>
@@ -15,6 +15,8 @@
             <th>Title Name</th>
             <th>Title Description</th>
             <th>Title is Active</th>
+            <th style="width: 150px">Action</th>
+
         </tr>
         </thead>
         <tbody>
@@ -24,10 +26,10 @@
                 <td>@item.Id</td>
                 <td>@item.TitleName</td>
                 <td>@item.Description</td>
-                <td>@item.IsActive</td>
+                <td>@(item.IsActive==true?"Active":"Passive")</td>
                 <td>
-                    <a class="btn btn-info" href="Title/edit?id=@item.Id" style="float:right;">Edit</a>
-                    <a class="btn btn-danger" href="Title/delete?id=@item.Id" style="float:right;">Delete</a>
+                    <a class="btn btn-success" href="/Title/edit/@item.Id/" style="float:right;">Edit</a>
+                    <a class="btn btn-danger" href="/Title/delete/@item.Id/" style="float:right;">Delete</a>
                 </td>
             </tr>
         }

@@ -1,0 +1,29 @@
+﻿@model PlantMaintenanceCore.Models.ViewModels.TitleViewModel
+@{
+    ViewData["Title"] = "Edit Titles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Save", "Title", FormMethod.Post))
+{
+    @Html.HiddenFor(x => x.Id)
+    <div class="form-group">
+        @Html.LabelFor(x => x.TitleName)
+        @Html.TextBoxFor(x => x.TitleName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.TitleName)
+        <br />
+        @Html.LabelFor(x => x.Description)
+        @Html.TextBoxFor(x => x.Description, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Description)
+    </div>
+    <div class="custom-radio" style="margin-top: 25px;margin-bottom: 15px">
+        <label>
+            @Html.RadioButtonFor(m => m.IsActive, true, new { @checked = "checked" }) Active
+        </label>
+        <label>
+            @Html.RadioButtonFor(m => m.IsActive, false) Passive
+        </label>
+    </div>
+    <button type="submit" class="btn btn-info">Save</button>
+}
+

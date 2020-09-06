@@ -5,23 +5,22 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PlantMaintenanceCore.Models.ViewModels;
 using PlantMaintenanceCore.Services;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace PlantMaintenanceCore.Controllers
 {
-    public class TitleController : Controller
+    public class RoleController : Controller
     {
         private readonly PlantMaintenanceCoreService _service;
 
-        public TitleController(PlantMaintenanceCoreService service)
+        public RoleController(PlantMaintenanceCoreService service)
         {
             _service = service;
         }
 
         public IActionResult Index()
         {
-            var result = _service.GetTitleItems();
-            var item = new DisplayTitleViewModel
+            var result = _service.GetRoleItems();
+            var item = new DisplayRoleViewModel
             {
                 Items = result
             };
@@ -33,18 +32,19 @@ namespace PlantMaintenanceCore.Controllers
         {
             if (id!=null)
             {
-                var item = _service.GetTitleItem(id.Value);
+                var item = _service.GetRoleItem(id.Value);
                 return View(item);
             }
+
             return View();
         }
 
         [HttpPost]
-        public IActionResult Save(TitleViewModel item)
+        public IActionResult Save(RoleViewModel item)
         {
             if (ModelState.IsValid)
             {
-                _service.AddUpdateTitle(item);
+                _service.AddUpdateRole(item);
                 return RedirectToAction("Index");
             }
 
