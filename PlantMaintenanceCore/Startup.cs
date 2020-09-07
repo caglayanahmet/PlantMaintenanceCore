@@ -31,6 +31,7 @@ namespace PlantMaintenanceCore
             services.AddDbContext<PlantMaintenanceCoreDbContext>(options => options.UseSqlServer(Configuration["PlantMaintenanceCoreDbConnectionString"]));
             //services.AddDbContext<PlantMaintenanceCoreDbContext>(options =>
             //    options.UseSqlite("Data Source=PlantMaintenanceCore.db;"));
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

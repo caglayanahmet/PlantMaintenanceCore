@@ -7,6 +7,8 @@ using PlantMaintenanceCore.Models;
 using PlantMaintenanceCore.Models.DataModels;
 using PlantMaintenanceCore.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace PlantMaintenanceCore.Services
@@ -56,6 +58,38 @@ namespace PlantMaintenanceCore.Services
             return result;
         }
 
+        public IEnumerable<PlantViewModel> GetPlantItems()
+        {
+            var result = _dbContext.Plants.Select(x=>new PlantViewModel()
+            {
+                Id =x.Id,
+                PlantName = x.PlantName,
+                IsActive = x.IsActive
+            });
+            return result;
+        }
+
+        public IEnumerable<DisplayPersonnelViewModelItem> GetPersonnelItems()
+        {
+            var result = from personnel in _dbContext.Personnels
+                join role in _dbContext.Roles on personnel.RoleId equals role.Id
+                join title in _dbContext.Titles on personnel.TitleId equals title.Id
+                select new {personnel, title, role};
+
+
+            return result.ToList().Select(x => new DisplayPersonnelViewModelItem
+            {
+                Id = x.personnel.Id,
+                FirstName = x.personnel.FirstName,
+                LastName = x.personnel.LastName,
+                Role = x.role.RoleName,
+                Title = x.title.TitleName,
+                Performance = x.personnel.Performance,
+                IsActive = x.personnel.IsActive,
+                DateOfBirth = x.personnel.DateOfBirth
+            });
+        }
+
         public TitleViewModel GetTitleItem(int id)
         {
             var result = _dbContext.Titles.Find(id);
@@ -90,6 +124,35 @@ namespace PlantMaintenanceCore.Services
                 Id = result.Id,
                 RoleName = result.RoleName,
                 Description = result.Description,
+                IsActive = result.IsActive
+            };
+            return item;
+        }
+
+        public PlantViewModel GetPlantItem(int id)
+        {
+            var result = _dbContext.Plants.Find(id);
+            var item = new PlantViewModel
+            {
+                Id = result.Id,
+                PlantName = result.PlantName,
+                IsActive = result.IsActive
+            };
+            return item;
+        }
+
+        public PersonnelViewModel GetPersonnelItem(int id)
+        {
+            var result = _dbContext.Personnels.Find(id);
+            var item = new PersonnelViewModel()
+            {
+                Id=result.Id,
+                FirstName = result.FirstName,
+                LastName = result.LastName,
+                DateOfBirth = result.DateOfBirth,
+                Title = result.TitleId,
+                Role = result.RoleId,
+                Performance = result.Performance,
                 IsActive = result.IsActive
             };
             return item;
@@ -136,6 +199,39 @@ namespace PlantMaintenanceCore.Services
                 _dbContext.Roles.Update(entity);
             else
                 _dbContext.Roles.Add(entity);
+
+            _dbContext.SaveChanges();
+        }
+
+        public void AddUpdatePlant(PlantViewModel item)
+        {
+            var entity = _dbContext.Plants.Find(item.Id) ?? new Plant();
+            entity.PlantName = item.PlantName;
+            entity.IsActive = item.IsActive;
+
+            if (entity.Id != 0)
+                _dbContext.Plants.Update(entity);
+            else
+                _dbContext.Plants.Add(entity);
+
+            _dbContext.SaveChanges();
+        }
+
+        public void AddUpdatePersonnel(PersonnelViewModel item)
+        {
+            var entity = _dbContext.Personnels.Find(item.Id) ?? new Personnel();
+            entity.FirstName = item.FirstName;
+            entity.LastName = item.LastName;
+            entity.DateOfBirth = item.DateOfBirth;
+            entity.Performance = item.Performance;
+            entity.TitleId = item.Title;
+            entity.RoleId = item.Role;
+            entity.IsActive = item.IsActive;
+
+            if (entity.Id != 0)
+                _dbContext.Personnels.Update(entity);
+            else
+                _dbContext.Personnels.Add(entity);
 
             _dbContext.SaveChanges();
         }

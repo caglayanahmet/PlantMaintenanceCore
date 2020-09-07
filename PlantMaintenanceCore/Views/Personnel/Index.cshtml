@@ -1,0 +1,46 @@
+﻿@model PlantMaintenanceCore.Models.ViewModels.DisplayPersonnelViewModel
+@{
+    ViewData["Title"] = "Personnels";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h1>@ViewData["Title"]</h1>
+    <a class="btn btn-info" href="/Personnel/Edit/" style="float:right; margin-bottom:30px;">Add New</a>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Title</th>
+            <th>Role</th>
+            <th>Date Of Birth</th>
+            <th>Performance</th>
+            <th>Status</th>
+            <th>Action</th>
+            <th style="width: 150px">Action</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.FirstName</td>
+                <td>@item.LastName</td>
+                <td>@item.Title</td>
+                <td>@item.Role</td>
+                <td>@item.DateOfBirth.ToString("dd-MM-yyyy")</td>
+                <td>@item.Performance</td>
+                <td>@(item.IsActive==true?"Active":"Passive")</td>
+                <td>
+                    <a class="btn btn-success" href="/Personnel/Edit/@item.Id/" style="float:right;">Edit</a>
+                    <a class="btn btn-danger" href="/Personnel/Delete/@item.Id/" style="float:right;">Delete</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

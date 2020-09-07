@@ -1,0 +1,25 @@
+﻿@model PlantMaintenanceCore.Models.ViewModels.PlantViewModel
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Save", "Plant", FormMethod.Post))
+{
+    @Html.HiddenFor(x => x.Id)
+    <div class="form-group">
+        @Html.LabelFor(x => x.PlantName)
+        @Html.TextBoxFor(x => x.PlantName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.PlantName)
+    </div>
+    <div class="custom-radio" style="margin-top: 25px;margin-bottom: 15px">
+        <label>
+            @Html.RadioButtonFor(m => m.IsActive, true, new { @checked = "checked" }) Active
+        </label>
+        <label>
+            @Html.RadioButtonFor(m => m.IsActive, false) Passive
+        </label>
+    </div>
+    <button type="submit" class="btn btn-info">Save</button>
+}
+

@@ -1,0 +1,49 @@
+﻿@using PlantMaintenanceCore.Models.DataModels
+@model PlantMaintenanceCore.Models.ViewModels.PersonnelViewModel
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Save", "Personnel", FormMethod.Post))
+{
+    @Html.HiddenFor(x => x.Id)
+    <div class="form-group">
+        @Html.LabelFor(x => x.FirstName)
+        @Html.TextBoxFor(x => x.FirstName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.FirstName)
+        <br />
+        @Html.LabelFor(x => x.LastName)
+        @Html.TextBoxFor(x => x.LastName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.LastName)
+        <br />
+        @Html.LabelFor(x => x.Title)
+        @Html.DropDownListFor(x => x.Title,new SelectList(Model.Titles,"Id")  ,new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Titles)
+        <br />
+        @Html.LabelFor(x => x.Roles)
+        @Html.DropDownListFor(x => x.Roles,new SelectList(Model.Roles,"Id") , new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Roles)
+        <br />
+        @Html.LabelFor(x => x.Performance)
+        @Html.TextBoxFor(x => x.Performance, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Performance)
+        <br />
+        @Html.LabelFor(x => x.DateOfBirth)
+        @Html.TextBoxFor(x => x.DateOfBirth, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+        @Html.ValidationMessageFor(x => x.DateOfBirth)
+        <br />
+    </div>
+
+    <div class="custom-radio" style="margin-top: 25px;margin-bottom: 15px">
+        <label>
+            @Html.RadioButtonFor(m => m.IsActive, true, new { @checked = "checked" }) Active
+        </label>
+        <label>
+            @Html.RadioButtonFor(m => m.IsActive, false) Passive
+        </label>
+    </div>
+    <button type="submit" class="btn btn-info">Save</button>
+}
+
+
