@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PlantMaintenanceCore.Models.DataModels;
 
 namespace PlantMaintenanceCore.Migrations
 {
     [DbContext(typeof(PlantMaintenanceCoreDbContext))]
-    partial class PlantMaintenanceCoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200910124018_plant-machineRelationCreated")]
+    partial class plantmachineRelationCreated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -108,7 +110,7 @@ namespace PlantMaintenanceCore.Migrations
                     b.Property<string>("MachineName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PlantId")
+                    b.Property<int?>("PlantId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -262,11 +264,9 @@ namespace PlantMaintenanceCore.Migrations
 
             modelBuilder.Entity("PlantMaintenanceCore.Models.DataModels.Machine", b =>
                 {
-                    b.HasOne("PlantMaintenanceCore.Models.DataModels.Plant", null)
+                    b.HasOne("PlantMaintenanceCore.Models.DataModels.Plant", "Plant")
                         .WithMany("Machines")
-                        .HasForeignKey("PlantId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PlantId");
                 });
 
             modelBuilder.Entity("PlantMaintenanceCore.Models.DataModels.Personnel", b =>

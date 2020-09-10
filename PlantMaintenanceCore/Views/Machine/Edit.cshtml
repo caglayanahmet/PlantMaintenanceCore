@@ -1,0 +1,35 @@
+﻿@model PlantMaintenanceCore.Models.ViewModels.EditMachineViewModel
+@{
+    ViewData["Title"] = "Edit Machine";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Save", "Machine", FormMethod.Post))
+{
+    @Html.HiddenFor(x => x.Id)
+    <div class="form-group">
+        @Html.LabelFor(x => x.PlantId,"Plant")
+        @Html.DropDownListFor(x => x.PlantId, Model.Plants, new {@class = "form-control"})
+        @Html.ValidationMessageFor(x => x.PlantId)
+        <br/>
+        @Html.LabelFor(x => x.MachineName)
+        @Html.TextBoxFor(x => x.MachineName, new {@class = "form-control"})
+        @Html.ValidationMessageFor(x => x.MachineName)
+        <br/>
+
+        @Html.LabelFor(x => x.Description)
+        @Html.TextBoxFor(x => x.Description, new {@class = "form-control"})
+        @Html.ValidationMessageFor(x => x.Description)
+        <br/>
+    </div>
+
+    <div class="custom-radio" style="margin-top: 25px; margin-bottom: 15px">
+        <label>
+            @Html.RadioButtonFor(m => m.IsActive, true, new {@checked = "checked"}) Active
+        </label>
+        <label>
+            @Html.RadioButtonFor(m => m.IsActive, false) Passive
+        </label>
+    </div>
+    <button type="submit" class="btn btn-info">Save</button>
+}

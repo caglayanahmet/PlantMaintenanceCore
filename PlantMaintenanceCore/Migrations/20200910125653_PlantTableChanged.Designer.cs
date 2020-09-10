@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PlantMaintenanceCore.Models.DataModels;
 
 namespace PlantMaintenanceCore.Migrations
 {
     [DbContext(typeof(PlantMaintenanceCoreDbContext))]
-    partial class PlantMaintenanceCoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200910125653_PlantTableChanged")]
+    partial class PlantTableChanged
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

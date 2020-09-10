@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using PlantMaintenanceCore.Models.ViewModels;
 using PlantMaintenanceCore.Services;
 
@@ -31,16 +32,17 @@ namespace PlantMaintenanceCore.Controllers
         [HttpGet]
         public IActionResult Edit(int? id)
         {
-            if (id!=null)
-            {
-                var item = _service.GetPersonnelItem(id.Value);
-                return View(item);
-            }
-            return View();
+            var model = id != null
+                ? new EditPersonnelViewModel(_service.GetPersonnelItem(id.Value))
+                : new EditPersonnelViewModel();
+
+            model.Roles = _service.GetRoleItems().Select(a => new SelectListItem(a.RoleName, a.Id.ToString()));
+            model.Titles = _service.GetTitleItems().Select(a => new SelectListItem(a.TitleName, a.Id.ToString()));
+            return View(model);
         }
 
         [HttpPost]
-        public IActionResult Save(PersonnelViewModel item)
+        public IActionResult Save(EditPersonnelViewModel item)
         {
             if (ModelState.IsValid)
             {

@@ -7,6 +7,7 @@ using PlantMaintenanceCore.Models;
 using PlantMaintenanceCore.Models.DataModels;
 using PlantMaintenanceCore.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
 
@@ -90,6 +91,22 @@ namespace PlantMaintenanceCore.Services
             });
         }
 
+        public IEnumerable<DisplayMachineViewModelItem> GetMachineItems()
+        {
+            var result = from machines in _dbContext.Machines
+                         join plant in _dbContext.Plants on machines.PlantId equals plant.Id
+                         select new { machines, plant };
+
+            return result.ToList().Select(x => new DisplayMachineViewModelItem
+            {
+                Id = x.machines.Id,
+                Plant = x.plant.PlantName,
+                MachineName = x.machines.MachineName,
+                Description = x.machines.Description,
+                IsActive = x.machines.IsActive
+            });
+        }
+
         public TitleViewModel GetTitleItem(int id)
         {
             var result = _dbContext.Titles.Find(id);
@@ -146,7 +163,7 @@ namespace PlantMaintenanceCore.Services
             var result = _dbContext.Personnels.Find(id);
             var item = new PersonnelViewModel()
             {
-                Id=result.Id,
+                Id = result.Id,
                 FirstName = result.FirstName,
                 LastName = result.LastName,
                 DateOfBirth = result.DateOfBirth,
@@ -155,6 +172,22 @@ namespace PlantMaintenanceCore.Services
                 Performance = result.Performance,
                 IsActive = result.IsActive
             };
+
+            return item;
+        }
+
+        public MachineViewModel GetMachineItem(int id)
+        {
+            var result = _dbContext.Machines.Find(id);
+            var item = new MachineViewModel()
+            {
+                Id = result.Id,
+                PlantId = result.PlantId,
+                MachineName = result.MachineName,
+                Description = result.Description,
+                IsActive = result.IsActive
+            };
+
             return item;
         }
 
@@ -232,6 +265,22 @@ namespace PlantMaintenanceCore.Services
                 _dbContext.Personnels.Update(entity);
             else
                 _dbContext.Personnels.Add(entity);
+
+            _dbContext.SaveChanges();
+        }
+
+        public void AddUpdateMachine(MachineViewModel item)
+        {
+            var entity = _dbContext.Machines.Find(item.Id) ?? new Machine();
+            entity.PlantId = item.PlantId;
+            entity.MachineName = item.MachineName;
+            entity.Description = item.Description;
+            entity.IsActive = item.IsActive;
+
+            if (entity.Id != 0)
+                _dbContext.Machines.Update(entity);
+            else
+                _dbContext.Machines.Add(entity);
 
             _dbContext.SaveChanges();
         }

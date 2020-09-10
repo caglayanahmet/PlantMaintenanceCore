@@ -18,7 +18,6 @@ namespace PlantMaintenanceCore.Models.ViewModels
         public int Performance { get; set; }
         public bool IsActive { get; set; }
 
-        public IEnumerable<SelectListItem> Roles { get; set; }
-        public IEnumerable<SelectListItem> Titles { get; set; }
+
     }
 }

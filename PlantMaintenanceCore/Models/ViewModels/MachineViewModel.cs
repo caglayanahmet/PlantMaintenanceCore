@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PlantMaintenanceCore.Models.DataModels
+namespace PlantMaintenanceCore.Models.ViewModels
 {
-    public class Machine
+    public class MachineViewModel
     {
-        public int Id { get; set; }
-        public int PlantId{ get; set; }
-        
+
+        public int? Id { get; set; }
+        public int PlantId { get; set; }
         public string MachineName { get; set; }
         public string Description { get; set; }
         public bool IsActive { get; set; }
-
     }
 }
