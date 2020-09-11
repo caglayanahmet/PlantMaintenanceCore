@@ -107,6 +107,19 @@ namespace PlantMaintenanceCore.Services
             });
         }
 
+        public IEnumerable<BreakdownTypeViewModel> GetBreakdownTypeItems()
+        {
+            var result = _dbContext.BreakdownTypes.Select(x=>new BreakdownTypeViewModel()
+            {
+                Id = x.Id,
+                BreakdownTypeName = x.BreakdownTypeName,
+                Description = x.Description,
+                IsActive = x.IsActive
+            });
+            
+            return result;
+        }
+
         public TitleViewModel GetTitleItem(int id)
         {
             var result = _dbContext.Titles.Find(id);
@@ -184,6 +197,20 @@ namespace PlantMaintenanceCore.Services
                 Id = result.Id,
                 PlantId = result.PlantId,
                 MachineName = result.MachineName,
+                Description = result.Description,
+                IsActive = result.IsActive
+            };
+
+            return item;
+        }
+
+        public BreakdownTypeViewModel GetBreakdownTypeItem(int id)
+        {
+            var result = _dbContext.BreakdownTypes.Find(id);
+            var item = new BreakdownTypeViewModel()
+            {
+                Id = result.Id,
+                BreakdownTypeName = result.BreakdownTypeName,
                 Description = result.Description,
                 IsActive = result.IsActive
             };
@@ -281,6 +308,21 @@ namespace PlantMaintenanceCore.Services
                 _dbContext.Machines.Update(entity);
             else
                 _dbContext.Machines.Add(entity);
+
+            _dbContext.SaveChanges();
+        }
+
+        public void AddUpdateBreakdownType(BreakdownTypeViewModel item)
+        {
+            var entity = _dbContext.BreakdownTypes.Find(item.Id) ?? new BreakdownType();
+            entity.BreakdownTypeName = item.BreakdownTypeName;
+            entity.Description = item.Description;
+            entity.IsActive = item.IsActive;
+
+            if (entity.Id != null)
+                _dbContext.BreakdownTypes.Update(entity);
+            else
+                _dbContext.BreakdownTypes.Add(entity);
 
             _dbContext.SaveChanges();
         }

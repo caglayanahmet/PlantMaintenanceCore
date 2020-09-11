@@ -1,0 +1,37 @@
+﻿@model PlantMaintenanceCore.Models.ViewModels.DisplayBreakdownTypeViewModel
+@{
+    ViewData["Title"] = "Breakdown Types";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h1>@ViewData["Title"]</h1>
+    <a class="btn btn-info" href="/BreakdownType/Edit/" style="float:right; margin-bottom:30px;">Add New</a>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Breakdown Type Name</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th style="width: 150px">Action</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.BreakdownTypeName</td>
+                <td>@item.Description</td>
+                <td>@(item.IsActive==true?"Active":"Passive")</td>
+                <td>
+                    <a class="btn btn-success" href="/BreakdownType/Edit/@item.Id/" style="float:right;">Edit</a>
+                    <a class="btn btn-danger" href="/BreakdownType/Delete/@item.Id/" style="float:right;">Delete</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
