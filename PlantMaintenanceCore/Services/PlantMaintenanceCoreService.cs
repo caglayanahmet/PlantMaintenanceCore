@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 
 namespace PlantMaintenanceCore.Services
@@ -120,6 +121,39 @@ namespace PlantMaintenanceCore.Services
             return result;
         }
 
+        public IEnumerable<DisplayBreakdownTypeViewModelItem> GetBreakdownItems()
+        {
+            var result = from breakdown in _dbContext.Breakdowns
+                join machines in _dbContext.Machines on breakdown.MachineId equals machines.Id
+                join breakdowntypes in _dbContext.BreakdownTypes on breakdown.BreakdownTypeId equals breakdowntypes.Id
+                join personnelsrequesting in _dbContext.Personnels on breakdown.PersonnelRequestingId equals
+                    personnelsrequesting.Id
+                join personnelsmaintenance in _dbContext.Personnels on breakdown.PersonnelMaintenanceId equals
+                    personnelsmaintenance.Id
+                join urgencies in _dbContext.Urgencies on breakdown.UrgencyId equals urgencies.Id
+                join plants in _dbContext.Plants on machines.PlantId equals plants.Id
+                select new
+                {
+                    machines, urgencies, personnelsrequesting, personnelsmaintenance, breakdown, breakdowntypes,plants
+                };
+
+            return result.ToList().Select(x => new DisplayBreakdownTypeViewModelItem()
+            {
+                Id = x.breakdown.Id,
+                Urgency =x.urgencies.UrgencyLevel,
+                PersonnelMaintenance = x.personnelsmaintenance.FirstName+" "+x.personnelsmaintenance.LastName,
+                PersonnelRequesting = x.personnelsrequesting.FirstName+" "+ x.personnelsrequesting.LastName,
+                Machine = x.machines.MachineName,
+                BreakdownType = x.breakdowntypes.BreakdownTypeName,
+                Description = x.breakdown.Description,
+                DeclareTime = x.breakdown.DeclareTime,
+                DoneTime = x.breakdown.DoneTime,
+                IsDone = x.breakdown.IsDone,
+                IsActive = x.breakdown.IsActive,
+                Plant = x.plants.PlantName
+            });
+        }
+
         public TitleViewModel GetTitleItem(int id)
         {
             var result = _dbContext.Titles.Find(id);
@@ -215,6 +249,26 @@ namespace PlantMaintenanceCore.Services
                 IsActive = result.IsActive
             };
 
+            return item;
+        }
+
+        public BreakdownViewModel GetBreakdownItem(int id)
+        {
+            var result = _dbContext.Breakdowns.Find(id);
+            var item = new BreakdownViewModel()
+            {
+                Id = result.Id,
+                Urgency = result.UrgencyId,
+                PersonnelRequestingId = result.PersonnelRequestingId,
+                PersonnelMaintenanceId = result.PersonnelMaintenanceId,
+                MachineId = result.MachineId,
+                BreakdownTypeId = result.BreakdownTypeId,
+                DeclareTime = result.DeclareTime,
+                DoneTime = result.DoneTime,
+                IsActive = result.IsActive,
+                IsDone = result.IsDone,
+                Description = result.Description
+            };
             return item;
         }
 
@@ -323,6 +377,28 @@ namespace PlantMaintenanceCore.Services
                 _dbContext.BreakdownTypes.Update(entity);
             else
                 _dbContext.BreakdownTypes.Add(entity);
+
+            _dbContext.SaveChanges();
+        }
+
+        public void AddUpdateBreakdown(BreakdownViewModel item)
+        {
+            var entity = _dbContext.Breakdowns.Find(item.Id) ?? new Breakdown();
+            entity.BreakdownTypeId = item.BreakdownTypeId;
+            entity.UrgencyId = item.Urgency;
+            entity.PersonnelMaintenanceId = item.PersonnelMaintenanceId;
+            entity.PersonnelRequestingId = item.PersonnelRequestingId;
+            entity.MachineId = item.MachineId;
+            entity.DeclareTime = item.DeclareTime;
+            entity.DoneTime = item.DoneTime;
+            entity.IsDone = item.IsDone;
+            entity.IsActive = item.IsActive;
+            entity.Description = item.Description;
+
+            if (entity.Id != null)
+                _dbContext.Breakdowns.Update(entity);
+            else
+                _dbContext.Breakdowns.Add(entity);
 
             _dbContext.SaveChanges();
         }

@@ -1,0 +1,54 @@
+﻿@model PlantMaintenanceCore.Models.ViewModels.DisplayBreakdownViewModel
+@{
+    ViewData["Title"] = "Breakdown List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="container">
+        <h1>@ViewData["Title"]</h1>
+        <a class="btn btn-info" href="/Breakdown/Edit/" style="float:right; margin-bottom:30px;">Add New</a>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Plant</th>
+                    <th>Machine</th>
+                    <th>Breakdown Type</th>
+                    <th>Description</th>
+                    <th>Declare Time</th>
+                    <th>Requester</th>
+                    <th>Maint. Per.</th>
+                    <th>Completion Time</th>
+                    <th>Urgency</th>
+                    <th>IsDone</th>
+                    <th>Status</th>
+                    <th style="width: 150px">Action</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Plant</td>
+                        <td>@item.Machine</td>
+                        <td>@item.BreakdownType</td>
+                        <td>@item.Description</td>
+                        <td>@item.DeclareTime</td>
+                        <td>@item.PersonnelRequesting</td>
+                        <td>@item.PersonnelMaintenance</td>
+                        <td>@item.DoneTime</td>
+                        <td>@item.Urgency</td>
+                        <td>@item.IsDone</td>
+                        <td>@(item.IsActive==true?"Active":"Passive")</td>
+                        <td>
+                            <a class="btn btn-success" href="/Breakdown/Edit/@item.Id/" style="float:right;">Edit</a>
+                            <a class="btn btn-danger" href="/Breakdown/Delete/@item.Id/" style="float:right;">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+

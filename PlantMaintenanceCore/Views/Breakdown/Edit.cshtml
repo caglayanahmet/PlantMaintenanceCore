@@ -1,0 +1,69 @@
+﻿@model PlantMaintenanceCore.Models.ViewModels.EditBreakdownViewModel
+@{
+    ViewData["Title"] = "Edit Breakdowns";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Save", "Breakdown", FormMethod.Post))
+{
+    @Html.HiddenFor(x => x.Id)
+    <div class="form-group">
+        @Html.LabelFor(x => x.PlantId)
+        @Html.DropDownListFor(x => x.PlantId, Model.Plants, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.PlantId)
+        <br />
+        @Html.LabelFor(x => x.MachineId)
+        @Html.DropDownListFor(x => x.MachineId, Model.Machines, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.MachineId)
+        <br />
+        @Html.LabelFor(x => x.BreakdownTypeId)
+        @Html.DropDownListFor(x => x.BreakdownTypeId, Model.BreakdownTypes, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.BreakdownTypeId)
+        <br />
+        @Html.LabelFor(x => x.Description)
+        @Html.TextBoxFor(x => x.Description, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Description)
+        <br />
+        @Html.LabelFor(x => x.DeclareTime)
+        @Html.TextBoxFor(x => x.DeclareTime, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+        @Html.ValidationMessageFor(x => x.DeclareTime)
+        <br />
+        @Html.LabelFor(x => x.PersonnelRequestingId)
+        @Html.DropDownListFor(x => x.PersonnelRequestingId, Model.PersonnelsRequesting, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.PersonnelRequestingId)
+        <br />
+        @Html.LabelFor(x => x.PersonnelMaintenanceId)
+        @Html.DropDownListFor(x => x.PersonnelMaintenanceId, Model.PersonnelsRequesting, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.PersonnelMaintenanceId)
+        <br />
+        @Html.LabelFor(x => x.DoneTime)
+        @Html.TextBoxFor(x => x.DoneTime, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+        @Html.ValidationMessageFor(x => x.DoneTime)
+        <br />
+        @Html.LabelFor(x => x.Urgency)
+        @Html.DropDownListFor(x => x.Urgency, Model.Urgencies, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Urgency)
+        <br />
+    </div>
+
+    <div class="custom-radio" style="margin-top: 25px;margin-bottom: 15px">
+        <label>
+            @Html.RadioButtonFor(m => m.IsDone, true, new { @checked = "checked" }) Done
+        </label>
+        <label>
+            @Html.RadioButtonFor(m => m.IsDone, false) Waiting
+        </label>
+    </div>
+
+    <div class="custom-radio" style="margin-top: 25px;margin-bottom: 15px">
+        <label>
+            @Html.RadioButtonFor(m => m.IsActive, true, new { @checked = "checked" }) Active
+        </label>
+        <label>
+            @Html.RadioButtonFor(m => m.IsActive, false) Passive
+        </label>
+    </div>
+    <button type="submit" class="btn btn-info">Save</button>
+}
+
+
