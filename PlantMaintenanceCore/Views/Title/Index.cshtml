@@ -14,7 +14,7 @@
             <th>Id</th>
             <th>Title Name</th>
             <th>Title Description</th>
-            <th>Title is Active</th>
+            <th hidden="">Title is Active</th>
             <th style="width: 150px">Action</th>
 
         </tr>
@@ -26,7 +26,7 @@
                 <td>@item.Id</td>
                 <td>@item.TitleName</td>
                 <td>@item.Description</td>
-                <td>@(item.IsActive==true?"Active":"Passive")</td>
+                <td hidden="">@(item.IsActive==true?"Active":"Passive")</td>
                 <td>
                     <a class="btn btn-success" href="/Title/edit/@item.Id/" style="float:right;">Edit</a>
                     <a class="btn btn-danger" href="/Title/delete/@item.Id/" style="float:right;">Delete</a>

@@ -12,7 +12,7 @@
                 <tr>
                     <th>Id</th>
                     <th>Plant Name</th>
-                    <th>Status</th>
+                    <th hidden="">Status</th>
                     <th style="width: 150px">Action</th>
 
                 </tr>
@@ -23,7 +23,7 @@
                     <tr>
                         <td>@item.Id</td>
                         <td>@item.PlantName</td>
-                        <td>@(item.IsActive==true?"Active":"Passive")</td>
+                        <td hidden="">@(item.IsActive==true?"Active":"Passive")</td>
                         <td>
                             <a class="btn btn-success" href="/Plant/Edit/@item.Id/" style="float:right;">Edit</a>
                             <a class="btn btn-danger" href="/Plant/Delete/@item.Id/" style="float:right;">Delete</a>

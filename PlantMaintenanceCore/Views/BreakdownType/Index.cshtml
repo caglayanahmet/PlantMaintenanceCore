@@ -13,7 +13,7 @@
             <th>Id</th>
             <th>Breakdown Type Name</th>
             <th>Description</th>
-            <th>Status</th>
+            <th hidden="">Status</th>
             <th style="width: 150px">Action</th>
 
         </tr>
@@ -25,7 +25,7 @@
                 <td>@item.Id</td>
                 <td>@item.BreakdownTypeName</td>
                 <td>@item.Description</td>
-                <td>@(item.IsActive==true?"Active":"Passive")</td>
+                <td hidden="">@(item.IsActive==true?"Active":"Passive")</td>
                 <td>
                     <a class="btn btn-success" href="/BreakdownType/Edit/@item.Id/" style="float:right;">Edit</a>
                     <a class="btn btn-danger" href="/BreakdownType/Delete/@item.Id/" style="float:right;">Delete</a>

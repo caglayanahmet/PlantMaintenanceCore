@@ -17,7 +17,7 @@
             <th>Role</th>
             <th>Date Of Birth</th>
             <th>Performance</th>
-            <th>Status</th>
+            <th hidden="">Status</th>
             <th style="width: 150px">Action</th>
 
         </tr>
@@ -33,7 +33,7 @@
                 <td>@item.Role</td>
                 <td>@item.DateOfBirth.ToString("dd-MM-yyyy")</td>
                 <td>@item.Performance</td>
-                <td>@(item.IsActive==true?"Active":"Passive")</td>
+                <td hidden="">@(item.IsActive==true?"Active":"Passive")</td>
                 <td>
                     <a class="btn btn-success" href="/Personnel/Edit/@item.Id/" style="float:right;">Edit</a>
                     <a class="btn btn-danger" href="/Personnel/Delete/@item.Id/" style="float:right;">Delete</a>

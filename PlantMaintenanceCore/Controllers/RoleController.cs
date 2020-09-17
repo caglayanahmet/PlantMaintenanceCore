@@ -50,5 +50,11 @@ namespace PlantMaintenanceCore.Controllers
 
             return RedirectToAction("Edit");
         }
+
+        public IActionResult Delete(int id)
+        {
+            _service.DeleteRole(id);
+            return RedirectToAction("Index");
+        }
     }
 }

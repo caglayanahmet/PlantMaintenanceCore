@@ -32,7 +32,7 @@ namespace PlantMaintenanceCore.Services
                 TitleName = x.TitleName,
                 Description = x.Description,
                 IsActive = x.IsActive
-            });
+            }).Where(x=>x.IsActive==true);
             return result;
         }
 
@@ -44,7 +44,7 @@ namespace PlantMaintenanceCore.Services
                 UrgencyLevel = x.UrgencyLevel,
                 Description = x.Description,
                 IsActive = x.IsActive
-            });
+            }).Where(x=>x.IsActive==true);
             return result;
         }
 
@@ -56,27 +56,27 @@ namespace PlantMaintenanceCore.Services
                 RoleName = x.RoleName,
                 Description = x.Description,
                 IsActive = x.IsActive
-            });
+            }).Where(x => x.IsActive == true);
             return result;
         }
 
         public IEnumerable<PlantViewModel> GetPlantItems()
         {
-            var result = _dbContext.Plants.Select(x=>new PlantViewModel()
+            var result = _dbContext.Plants.Select(x => new PlantViewModel()
             {
-                Id =x.Id,
+                Id = x.Id,
                 PlantName = x.PlantName,
                 IsActive = x.IsActive
-            });
+            }).Where(x => x.IsActive == true);
             return result;
         }
 
         public IEnumerable<DisplayPersonnelViewModelItem> GetPersonnelItems()
         {
             var result = from personnel in _dbContext.Personnels
-                join role in _dbContext.Roles on personnel.RoleId equals role.Id
-                join title in _dbContext.Titles on personnel.TitleId equals title.Id
-                select new {personnel, title, role};
+                         join role in _dbContext.Roles on personnel.RoleId equals role.Id
+                         join title in _dbContext.Titles on personnel.TitleId equals title.Id
+                         select new { personnel, title, role };
 
 
             return result.ToList().Select(x => new DisplayPersonnelViewModelItem
@@ -89,7 +89,7 @@ namespace PlantMaintenanceCore.Services
                 Performance = x.personnel.Performance,
                 IsActive = x.personnel.IsActive,
                 DateOfBirth = x.personnel.DateOfBirth
-            });
+            }).Where(x => x.IsActive == true);
         }
 
         public IEnumerable<DisplayMachineViewModelItem> GetMachineItems()
@@ -105,44 +105,50 @@ namespace PlantMaintenanceCore.Services
                 MachineName = x.machines.MachineName,
                 Description = x.machines.Description,
                 IsActive = x.machines.IsActive
-            });
+            }).Where(x => x.IsActive == true);
         }
 
         public IEnumerable<BreakdownTypeViewModel> GetBreakdownTypeItems()
         {
-            var result = _dbContext.BreakdownTypes.Select(x=>new BreakdownTypeViewModel()
+            var result = _dbContext.BreakdownTypes.Select(x => new BreakdownTypeViewModel()
             {
                 Id = x.Id,
                 BreakdownTypeName = x.BreakdownTypeName,
                 Description = x.Description,
                 IsActive = x.IsActive
-            });
-            
+            }).Where(x => x.IsActive == true);
+
             return result;
         }
 
         public IEnumerable<DisplayBreakdownTypeViewModelItem> GetBreakdownItems()
         {
             var result = from breakdown in _dbContext.Breakdowns
-                join machines in _dbContext.Machines on breakdown.MachineId equals machines.Id
-                join breakdowntypes in _dbContext.BreakdownTypes on breakdown.BreakdownTypeId equals breakdowntypes.Id
-                join personnelsrequesting in _dbContext.Personnels on breakdown.PersonnelRequestingId equals
-                    personnelsrequesting.Id
-                join personnelsmaintenance in _dbContext.Personnels on breakdown.PersonnelMaintenanceId equals
-                    personnelsmaintenance.Id
-                join urgencies in _dbContext.Urgencies on breakdown.UrgencyId equals urgencies.Id
-                join plants in _dbContext.Plants on machines.PlantId equals plants.Id
-                select new
-                {
-                    machines, urgencies, personnelsrequesting, personnelsmaintenance, breakdown, breakdowntypes,plants
-                };
+                         join machines in _dbContext.Machines on breakdown.MachineId equals machines.Id
+                         join breakdowntypes in _dbContext.BreakdownTypes on breakdown.BreakdownTypeId equals breakdowntypes.Id
+                         join personnelsrequesting in _dbContext.Personnels on breakdown.PersonnelRequestingId equals
+                             personnelsrequesting.Id
+                         join personnelsmaintenance in _dbContext.Personnels on breakdown.PersonnelMaintenanceId equals
+                             personnelsmaintenance.Id
+                         join urgencies in _dbContext.Urgencies on breakdown.UrgencyId equals urgencies.Id
+                         join plants in _dbContext.Plants on machines.PlantId equals plants.Id
+                         select new
+                         {
+                             machines,
+                             urgencies,
+                             personnelsrequesting,
+                             personnelsmaintenance,
+                             breakdown,
+                             breakdowntypes,
+                             plants
+                         };
 
             return result.ToList().Select(x => new DisplayBreakdownTypeViewModelItem()
             {
                 Id = x.breakdown.Id,
-                Urgency =x.urgencies.UrgencyLevel,
-                PersonnelMaintenance = x.personnelsmaintenance.FirstName+" "+x.personnelsmaintenance.LastName,
-                PersonnelRequesting = x.personnelsrequesting.FirstName+" "+ x.personnelsrequesting.LastName,
+                Urgency = x.urgencies.UrgencyLevel,
+                PersonnelMaintenance = x.personnelsmaintenance.FirstName + " " + x.personnelsmaintenance.LastName,
+                PersonnelRequesting = x.personnelsrequesting.FirstName + " " + x.personnelsrequesting.LastName,
                 Machine = x.machines.MachineName,
                 BreakdownType = x.breakdowntypes.BreakdownTypeName,
                 Description = x.breakdown.Description,
@@ -151,7 +157,7 @@ namespace PlantMaintenanceCore.Services
                 IsDone = x.breakdown.IsDone,
                 IsActive = x.breakdown.IsActive,
                 Plant = x.plants.PlantName
-            });
+            }).Where(x => x.IsActive == true);
         }
 
         public TitleViewModel GetTitleItem(int id)
@@ -172,7 +178,7 @@ namespace PlantMaintenanceCore.Services
             var result = _dbContext.Urgencies.Find(id);
             var item = new UrgencyViewModel()
             {
-                Id= result.Id,
+                Id = result.Id,
                 UrgencyLevel = result.UrgencyLevel,
                 Description = result.Description,
                 IsActive = result.IsActive
@@ -400,6 +406,62 @@ namespace PlantMaintenanceCore.Services
             else
                 _dbContext.Breakdowns.Add(entity);
 
+            _dbContext.SaveChanges();
+        }
+
+        public void DeleteUrgency(int id)
+        {
+            var item = _dbContext.Urgencies.Find(id);
+            item.IsActive = false;
+            _dbContext.SaveChanges();
+        }
+
+        public void DeleteTitle(int id)
+        {
+            var item = _dbContext.Titles.Find(id);
+            item.IsActive = false;
+            _dbContext.SaveChanges();
+        }
+
+        public void DeleteRole(int id)
+        {
+            var item = _dbContext.Roles.Find(id);
+            item.IsActive = false;
+            _dbContext.SaveChanges();
+        }
+
+        public void DeletePlant(int id)
+        {
+            var item = _dbContext.Plants.Find(id);
+            item.IsActive = false;
+            _dbContext.SaveChanges();
+        }
+
+        public void DeletePersonnel(int id)
+        {
+            var item = _dbContext.Personnels.Find(id);
+            item.IsActive = false;
+            _dbContext.SaveChanges();
+        }
+
+        public void DeleteMachine(int id)
+        {
+            var item = _dbContext.Machines.Find(id);
+            item.IsActive = false;
+            _dbContext.SaveChanges();
+        }
+
+        public void DeleteBreakdownType(int id)
+        {
+            var item = _dbContext.BreakdownTypes.Find(id);
+            item.IsActive = false;
+            _dbContext.SaveChanges();
+        }
+
+        public void DeleteBreakdown(int id)
+        {
+            var item = _dbContext.Breakdowns.Find(id);
+            item.IsActive = false;
             _dbContext.SaveChanges();
         }
     }

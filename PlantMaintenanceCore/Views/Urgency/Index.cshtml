@@ -13,7 +13,6 @@
                     <th>Id</th>
                     <th>Urgency Level Name</th>
                     <th>Description</th>
-                    <th>Urgency is Active</th>
                     <th style="width: 150px">Action</th>
 
                 </tr>
@@ -25,7 +24,6 @@
                         <td>@item.Id</td>
                         <td>@item.UrgencyLevel</td>
                         <td>@item.Description</td>
-                        <td>@(item.IsActive==true?"Active":"Passive")</td>
                         <td>
                             <a class="btn btn-success" href="/Urgency/edit/@item.Id/" style="float:right;">Edit</a>
                             <a class="btn btn-danger" href="/Urgency/delete/@item.Id/" style="float:right;">Delete</a>

@@ -48,5 +48,11 @@ namespace PlantMaintenanceCore.Controllers
             }
             return RedirectToAction("Edit");
         }
+
+        public IActionResult Delete(int id)
+        {
+            _service.DeleteUrgency(id);
+            return RedirectToAction("Index");
+        }
     }
 }
