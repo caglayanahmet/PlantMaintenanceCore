@@ -8,40 +8,40 @@
 {
     @Html.HiddenFor(x => x.Id)
     <div class="form-group">
-        @Html.LabelFor(x => x.PlantId)
-        @Html.DropDownListFor(x => x.PlantId, Model.Plants, new { @class = "form-control" })
+        @Html.LabelFor(x => x.PlantId,"Plant Name")
+        @Html.DropDownListFor(x => x.PlantId, Model.Plants,"Select a Plant", new { @class = "form-control" })
         @Html.ValidationMessageFor(x => x.PlantId)
         <br />
-        @Html.LabelFor(x => x.MachineId)
-        @Html.DropDownListFor(x => x.MachineId, Model.Machines, new { @class = "form-control" })
+        @Html.LabelFor(x => x.MachineId,"Machine Name")
+        @Html.DropDownListFor(x => x.MachineId, Model.Machines, "Select a Machine", new { @class = "form-control" })
         @Html.ValidationMessageFor(x => x.MachineId)
         <br />
-        @Html.LabelFor(x => x.BreakdownTypeId)
-        @Html.DropDownListFor(x => x.BreakdownTypeId, Model.BreakdownTypes, new { @class = "form-control" })
+        @Html.LabelFor(x => x.BreakdownTypeId,"Breakdown Type")
+        @Html.DropDownListFor(x => x.BreakdownTypeId, Model.BreakdownTypes, "Select a BreakdownType", new { @class = "form-control" })
         @Html.ValidationMessageFor(x => x.BreakdownTypeId)
         <br />
         @Html.LabelFor(x => x.Description)
-        @Html.TextBoxFor(x => x.Description, new { @class = "form-control" })
+        @Html.TextAreaFor(x => x.Description, new { @class = "form-control",@placeholder="Enter an explicit definition of the breakdown" })
         @Html.ValidationMessageFor(x => x.Description)
         <br />
-        @Html.LabelFor(x => x.DeclareTime)
+        @Html.LabelFor(x => x.DeclareTime,"Declare Time")
         @Html.TextBoxFor(x => x.DeclareTime, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
         @Html.ValidationMessageFor(x => x.DeclareTime)
         <br />
-        @Html.LabelFor(x => x.PersonnelRequestingId)
-        @Html.DropDownListFor(x => x.PersonnelRequestingId, Model.PersonnelsRequesting, new { @class = "form-control" })
+        @Html.LabelFor(x => x.PersonnelRequestingId,"Requesting Personnel")
+        @Html.DropDownListFor(x => x.PersonnelRequestingId, Model.PersonnelsRequesting, "Select a Personnel", new { @class = "form-control" })
         @Html.ValidationMessageFor(x => x.PersonnelRequestingId)
         <br />
-        @Html.LabelFor(x => x.PersonnelMaintenanceId)
-        @Html.DropDownListFor(x => x.PersonnelMaintenanceId, Model.PersonnelsRequesting, new { @class = "form-control" })
+        @Html.LabelFor(x => x.PersonnelMaintenanceId,"Maintenance Personnel")
+        @Html.DropDownListFor(x => x.PersonnelMaintenanceId, Model.PersonnelsRequesting, "Select a Personnel", new { @class = "form-control" })
         @Html.ValidationMessageFor(x => x.PersonnelMaintenanceId)
         <br />
-        @Html.LabelFor(x => x.DoneTime)
+        @Html.LabelFor(x => x.DoneTime,"Completion Time")
         @Html.TextBoxFor(x => x.DoneTime, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
         @Html.ValidationMessageFor(x => x.DoneTime)
         <br />
         @Html.LabelFor(x => x.Urgency)
-        @Html.DropDownListFor(x => x.Urgency, Model.Urgencies, new { @class = "form-control" })
+        @Html.DropDownListFor(x => x.Urgency, Model.Urgencies, "Select an Urgency", new { @class = "form-control" })
         @Html.ValidationMessageFor(x => x.Urgency)
         <br />
     </div>
@@ -66,4 +66,8 @@
     <button type="submit" class="btn btn-info">Save</button>
 }
 
-
+@section Scripts
+{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

@@ -13,8 +13,10 @@ namespace PlantMaintenanceCore.Models.ViewModels
 
         [Required]
         [StringLength(50)]
-        [Display(Name = "Title Name")]
         public string TitleName { get; set; }
+
+        [Required]
+        [StringLength(500)]
         public string Description { get; set; }
         public bool IsActive { get; set; }
 

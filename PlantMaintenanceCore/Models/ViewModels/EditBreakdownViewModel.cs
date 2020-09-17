@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
@@ -10,11 +11,22 @@ namespace PlantMaintenanceCore.Models.ViewModels
 {
     public class EditBreakdownViewModel:BreakdownViewModel
     {
+        [Required]
         public IEnumerable<SelectListItem> Urgencies { get; set; }
+
+        [Required(ErrorMessage = "Breakdown Type Name field is required")]
         public IEnumerable<SelectListItem> PersonnelsRequesting { get; set; }
+
+        [Required]
         public IEnumerable<SelectListItem> PersonnelsMaintenance { get; set; }
+
+        [Required]
         public IEnumerable<SelectListItem> Machines { get; set; }
+
+        [Required]
         public IEnumerable<SelectListItem> Plants { get; set; }
+
+        [Required]
         public IEnumerable<SelectListItem> BreakdownTypes { get; set; }
 
         public EditBreakdownViewModel(BreakdownViewModel model)

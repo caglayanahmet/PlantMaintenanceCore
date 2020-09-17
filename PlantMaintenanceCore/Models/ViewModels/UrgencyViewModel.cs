@@ -10,10 +10,12 @@ namespace PlantMaintenanceCore.Models.ViewModels
     {
         public int? Id { get; set; }
 
+        [StringLength(50)]
+        [Required(ErrorMessage = "Urgency level field is required")]
+        public string UrgencyLevel { get; set; }
+
         [Required]
         [StringLength(50)]
-        [Display(Name = "Urgency Level Name")]
-        public string UrgencyLevel { get; set; }
         public string Description { get; set; }
         public bool IsActive { get; set; }
     }

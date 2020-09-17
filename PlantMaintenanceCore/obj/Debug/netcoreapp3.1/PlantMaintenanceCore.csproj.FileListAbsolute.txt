@@ -325,3 +325,4 @@ C:\Users\Ahmet C\Desktop\git\PlantMaintenanceCore\PlantMaintenanceCore\obj\Debug
 C:\Users\Ahmet C\Desktop\git\PlantMaintenanceCore\PlantMaintenanceCore\obj\Debug\netcoreapp3.1\Razor\Views\BreakdownType\Index.cshtml.g.cs
 C:\Users\Ahmet C\Desktop\git\PlantMaintenanceCore\PlantMaintenanceCore\obj\Debug\netcoreapp3.1\Razor\Views\Breakdown\Edit.cshtml.g.cs
 C:\Users\Ahmet C\Desktop\git\PlantMaintenanceCore\PlantMaintenanceCore\obj\Debug\netcoreapp3.1\Razor\Views\Breakdown\Index.cshtml.g.cs
+C:\Users\Ahmet C\Desktop\git\PlantMaintenanceCore\PlantMaintenanceCore\bin\Debug\netcoreapp3.1\libman.json

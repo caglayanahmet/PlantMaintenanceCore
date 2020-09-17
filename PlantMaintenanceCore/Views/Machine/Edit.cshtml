@@ -8,28 +8,34 @@
 {
     @Html.HiddenFor(x => x.Id)
     <div class="form-group">
-        @Html.LabelFor(x => x.PlantId,"Plant")
-        @Html.DropDownListFor(x => x.PlantId, Model.Plants, new {@class = "form-control"})
+        @Html.LabelFor(x => x.PlantId, "Plant")
+        @Html.DropDownListFor(x => x.PlantId, Model.Plants, new { @class = "form-control" })
         @Html.ValidationMessageFor(x => x.PlantId)
-        <br/>
+        <br />
         @Html.LabelFor(x => x.MachineName)
-        @Html.TextBoxFor(x => x.MachineName, new {@class = "form-control"})
+        @Html.TextBoxFor(x => x.MachineName, new { @class = "form-control" })
         @Html.ValidationMessageFor(x => x.MachineName)
-        <br/>
+        <br />
 
         @Html.LabelFor(x => x.Description)
-        @Html.TextBoxFor(x => x.Description, new {@class = "form-control"})
+        @Html.TextBoxFor(x => x.Description, new { @class = "form-control" })
         @Html.ValidationMessageFor(x => x.Description)
-        <br/>
+        <br />
     </div>
 
     <div class="custom-radio" style="margin-top: 25px; margin-bottom: 15px">
         <label>
-            @Html.RadioButtonFor(m => m.IsActive, true, new {@checked = "checked"}) Active
+            @Html.RadioButtonFor(m => m.IsActive, true, new { @checked = "checked" }) Active
         </label>
         <label>
             @Html.RadioButtonFor(m => m.IsActive, false) Passive
         </label>
     </div>
     <button type="submit" class="btn btn-info">Save</button>
+}
+
+@section Scripts
+{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,7 +11,10 @@ namespace PlantMaintenanceCore.Models.ViewModels
 {
     public class EditPersonnelViewModel:PersonnelViewModel
     {
+        [Required]
         public IEnumerable<SelectListItem> Roles { get; set; }
+
+        [Required]
         public IEnumerable<SelectListItem> Titles { get; set; }
 
         public EditPersonnelViewModel(PersonnelViewModel model)

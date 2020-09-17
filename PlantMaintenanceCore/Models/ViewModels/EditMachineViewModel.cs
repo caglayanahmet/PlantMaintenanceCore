@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -9,6 +10,7 @@ namespace PlantMaintenanceCore.Models.ViewModels
 {
     public class EditMachineViewModel : MachineViewModel
     {
+        [Required]
         public IEnumerable<SelectListItem> Plants { get; set; }
 
         public EditMachineViewModel(MachineViewModel model)

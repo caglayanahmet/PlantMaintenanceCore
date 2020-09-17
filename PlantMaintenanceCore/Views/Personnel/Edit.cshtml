@@ -17,12 +17,12 @@
         @Html.ValidationMessageFor(x => x.LastName)
         <br />
         @Html.LabelFor(x => x.Title)
-        @Html.DropDownListFor(x => x.Title ,Model.Titles  ,new { @class = "form-control" })
+        @Html.DropDownListFor(x => x.Title, Model.Titles,"Select a Title", new { @class = "form-control" })
         @Html.ValidationMessageFor(x => x.Title)
         <br />
         @Html.LabelFor(x => x.Role)
-        @Html.DropDownListFor(x => x.Role , Model.Roles , new { @class = "form-control" })
-        @Html.ValidationMessageFor(x => x.Role )
+        @Html.DropDownListFor(x => x.Role, Model.Roles,"Select a Role", new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Role)
         <br />
         @Html.LabelFor(x => x.Performance)
         @Html.TextBoxFor(x => x.Performance, new { @class = "form-control" })
@@ -45,4 +45,8 @@
     <button type="submit" class="btn btn-info">Save</button>
 }
 
-
+@section Scripts
+{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

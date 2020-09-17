@@ -8,12 +8,12 @@
 {
     @Html.HiddenFor(x => x.Id)
     <div class="form-group">
-        @Html.LabelFor(x => x.TitleName)
+        @Html.LabelFor(x => x.TitleName,"Title Name")
         @Html.TextBoxFor(x => x.TitleName, new { @class = "form-control" })
         @Html.ValidationMessageFor(x => x.TitleName)
         <br />
         @Html.LabelFor(x => x.Description)
-        @Html.TextBoxFor(x => x.Description, new { @class = "form-control" })
+        @Html.TextAreaFor(x => x.Description, new { @class = "form-control" })
         @Html.ValidationMessageFor(x => x.Description)
     </div>
     <div class="custom-radio" style="margin-top: 25px;margin-bottom: 15px">
@@ -25,5 +25,11 @@
         </label>
     </div>
     <button type="submit" class="btn btn-info">Save</button>
+}
+
+@section Scripts
+{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 }
 

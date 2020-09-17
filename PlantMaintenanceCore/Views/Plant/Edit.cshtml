@@ -8,7 +8,7 @@
 {
     @Html.HiddenFor(x => x.Id)
     <div class="form-group">
-        @Html.LabelFor(x => x.PlantName)
+        @Html.LabelFor(x => x.PlantName,"Plant Name")
         @Html.TextBoxFor(x => x.PlantName, new { @class = "form-control" })
         @Html.ValidationMessageFor(x => x.PlantName)
     </div>
@@ -23,3 +23,8 @@
     <button type="submit" class="btn btn-info">Save</button>
 }
 
+@section Scripts
+{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
